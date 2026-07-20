@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .section-card {
+    @apply bg-white rounded-xl shadow-sm mb-4 overflow-hidden;
+  }
+
+  .section-header {
+    @apply w-full flex items-center justify-between px-5 py-4 bg-transparent border-none cursor-pointer text-[15px] font-semibold text-slate-800 hover:bg-slate-50 transition-colors;
+  }
+
+  .section-chevron {
+    @apply text-slate-400 transition-transform duration-200;
+  }
+
+  .section-chevron.open {
+    @apply rotate-180;
+  }
+
+  .section-body {
+    @apply px-5 pb-5 flex flex-col gap-3.5;
+  }
+
+  .form-field {
+    @apply flex flex-col gap-1;
+  }
+
+  .form-label {
+    @apply text-xs font-semibold text-slate-500 uppercase tracking-wide;
+  }
+
+  .form-input,
+  .form-textarea {
+    @apply px-3 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-800 bg-white transition-all duration-200 w-full;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    @apply outline-none border-blue-500 ring-2 ring-blue-100;
+  }
+
+  .form-textarea {
+    @apply resize-y min-h-[80px];
+  }
+
+  .item-card {
+    @apply bg-slate-50 border border-slate-200 rounded-lg p-4 flex flex-col gap-3;
+  }
+
+  .item-header {
+    @apply flex items-center justify-between;
+  }
+
+  .item-number {
+    @apply text-[13px] font-semibold text-blue-600;
+  }
+
+  .btn-icon {
+    @apply flex items-center justify-center w-8 h-8 rounded-md border-none bg-transparent cursor-pointer text-slate-400 hover:bg-red-50 hover:text-red-600 transition-all;
+  }
+
+  .btn-add {
+    @apply flex items-center justify-center gap-1.5 w-full py-2.5 border-[1.5px] border-dashed border-slate-200 rounded-lg bg-transparent text-slate-500 text-sm font-medium cursor-pointer hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all;
+  }
+
+  .tag {
+    @apply inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-[13px] font-medium;
+  }
+
+  .tag-remove {
+    @apply bg-none border-none text-blue-600 cursor-pointer text-base leading-none p-0 w-4 h-4 flex items-center justify-center hover:text-red-500;
+  }
+
+  .tag-input {
+    @apply px-3 py-2.5 border border-slate-200 rounded-lg text-sm w-full focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100;
+  }
+
+  /* Resume Paper */
+  .resume-paper {
+    @apply w-[210mm] bg-white p-10 shadow-lg font-serif text-neutral-900 leading-relaxed flex-shrink-0;
+  }
+
+  .resume-header {
+    @apply text-center pb-5 border-b-2 border-neutral-900 mb-6;
+  }
+
+  .resume-name {
+    @apply text-[28px] font-bold tracking-wide uppercase mb-1 text-neutral-900;
+  }
+
+  .resume-role {
+    @apply text-[15px] text-neutral-600 font-medium mb-3.5 tracking-wide;
+  }
+
+  .resume-contact {
+    @apply flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs text-neutral-700;
+  }
+
+  .resume-contact span {
+    @apply inline-flex items-center gap-1;
+  }
+
+  .resume-section {
+    @apply mb-5;
+  }
+
+  .resume-section-title {
+    @apply text-[13px] font-bold uppercase tracking-widest text-neutral-900 border-b border-neutral-300 pb-1.5 mb-3;
+  }
+
+  .resume-entry {
+    @apply mb-3.5;
+  }
+
+  .resume-entry-header {
+    @apply flex justify-between items-start mb-1;
+  }
+
+  .resume-entry-title {
+    @apply text-sm font-bold text-neutral-900;
+  }
+
+  .resume-entry-subtitle {
+    @apply text-[13px] text-neutral-600 italic;
+  }
+
+  .resume-entry-date {
+    @apply text-xs text-neutral-500 whitespace-nowrap ml-3;
+  }
+
+  .resume-text {
+    @apply text-[13px] text-neutral-600 leading-7;
+  }
+
+  .resume-skill {
+    @apply text-xs bg-neutral-100 px-2.5 py-0.5 rounded text-neutral-700;
+  }
+
+  .resume-lang-name {
+    @apply font-semibold text-[13px];
+  }
+
+  .resume-lang-level {
+    @apply text-neutral-500 text-[13px];
+  }
+}
+
+@layer utilities {
+  /* ============================================
+     SCROLL NO PAINEL DE EDIÇÃO (ESQUERDA)
+     ============================================ */
+  .editor-panel::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .editor-panel::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+
+  .editor-panel::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 4px;
+    border: 2px solid #f1f5f9;
+  }
+
+  .editor-panel::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+
+  /* ============================================
+     SCROLL NO PAINEL DE PRÉ-VISUALIZAÇÃO (DIREITA)
+     ============================================ */
+  .preview-panel::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .preview-panel::-webkit-scrollbar-track {
+    background: #e2e8f0;
+    border-radius: 4px;
+  }
+
+  .preview-panel::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 4px;
+    border: 2px solid #e2e8f0;
+  }
+
+  .preview-panel::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+}
+
+@media (max-width: 1024px) {
+  .resume-paper {
+    width: 190mm;
+    padding: 32px 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .resume-paper {
+    width: 100%;
+    padding: 28px 24px;
+    box-shadow: none;
+  }
+}
+
+@media print {
+  .app-header,
+  .editor-panel,
+  .btn-toggle,
+  .btn-export {
+    display: none !important;
+  }
+
+  .preview-panel {
+    background: white;
+  }
+
+  .resume-paper {
+    box-shadow: none;
+    width: 100%;
+    padding: 0;
+    overflow: visible;
+  }
+}
