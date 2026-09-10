@@ -173,7 +173,7 @@ Deployment is GitHub Pages — the static build output is served directly at [ke
 **Kelvin Oliveira**
 
 - GitHub: [KelvinOliveiraCode](https://github.com/KelvinOliveiraCode)
-- LinkedIn: [kelvin-oliveira-0282033b4](https://www.linkedin.com/in/kelvin-oliveira-0282033b4/)
+- LinkedIn: [kelvin-oliveira-code](https://www.linkedin.com/in/kelvin-oliveira-code/)
 
 ## Licença
 
