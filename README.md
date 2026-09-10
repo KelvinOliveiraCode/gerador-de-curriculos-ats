@@ -1,257 +1,180 @@
-<div align="center">
+# ats-resume-builder — Gerador de currículos que passam pelo filtro das ATS
 
-# 📄 ATS Resume Builder
+![React](https://img.shields.io/badge/React-18.3-61dafb?style=flat-square&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178c6?style=flat-square&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06b6d4?style=flat-square&logo=tailwindcss&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5.3-646cff?style=flat-square&logo=vite&logoColor=white)
+![GitHub Pages](https://img.shields.io/badge/Live-GitHub_Pages-121013?style=flat-square&logo=githubpages&logoColor=white)
 
-### Gerador de Currículos Otimizado para Sistemas ATS
-
-[![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=white)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.3-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
-<p align="center">
-  <img src="https://img.shields.io/badge/status-em%20desenvolvimento-yellow" alt="Status">
-  <img src="https://img.shields.io/badge/versão-1.0.0-blue" alt="Versão">
-</p>
-
-</div>
+**ats-resume-builder** é um gerador de currículos ATS-friendly em React 18.3 + TypeScript 5.5, com Vite 5.3 no build e Tailwind 3.4 no estilo. A premissa é direta: a maioria dos currículos é descartada por sistemas de triagem automática (ATS) antes de chegar a um recrutador — tabelas, colunas múltiplas e hierarquia de cabeçalhos malfeita quebram o parsing. Este app resolve isso com um template de coluna única e semântica correta, preview em tempo real e export PDF em A4 via html2pdf.js 0.10. Interface bilíngue (PT/EN) tanto no editor quanto no documento gerado. Está no ar: [kelvinoliveiracode.github.io/ats-resume-builder](https://kelvinoliveiracode.github.io/ats-resume-builder).
 
 ---
 
-## 📖 Sobre o Projeto
+## 🇧🇷 Português
 
-O **ATS Resume Builder** é uma aplicação web moderna que permite criar currículos profissionais otimizados para **Sistemas ATS** (Applicant Tracking Systems). Esses sistemas são utilizados por empresas para filtrar e classificar currículos automaticamente, por isso a formatação correta é essencial para passar pelos filtros.
+### O que é
 
-Este projeto foi desenvolvido como um **MVP (Produto Mínimo Viável)** com foco em:
+Um MVP de gerador de currículos com foco deliberado em simplicidade: o usuário preenche formulários, vê o resultado instantaneamente no preview e exporta em PDF. Nenhuma conta, nenhum servidor — a persistência é `localStorage`, feita através de um hook `useLocalStorage` dedicado.
 
-- ✅ **Simplicidade** — Interface limpa e intuitiva
-- ✅ **Pré-visualização em tempo real** — Veja as alterações instantaneamente
-- ✅ **Template ATS Friendly** — Layout otimizado para parsers de currículo
-- ✅ **Exportação PDF** — Download em formato A4 profissional
-- ✅ **Persistência local** — Dados salvos automaticamente no navegador
-- ✅ **Suporte a idiomas** — Interface e documento em Português ou Inglês
+### Funcionalidades
 
----
+- **Preview em tempo real** — cada tecla digitada reflete imediatamente no currículo renderizado ao lado.
+- **Template ATS** — coluna única, sem tabelas, hierarquia `h1`/`h2`/`h3` e fontes legíveis: a estrutura que parsers de ATS leem sem erro.
+- **Export PDF A4** — via html2pdf.js 0.10, direto do DOM.
+- **Persistência local** — hook `useLocalStorage` mantém o rascunho entre sessões.
+- **PT/EN** — interface e documento em português ou inglês.
+- **Dados demo** — utilitário `demoData` preenche o currículo com conteúdo de exemplo.
 
-## 🎥 Demonstração
+### Formulários e componentes
 
-<div align="center">
+Formulários:
 
-![Screenshot da aplicação](screenshot.png)
+- **Personal** — dados pessoais de contato.
+- **Education** — formação.
+- **Experience** — múltiplas experiências, adicionar/remover dinamicamente.
+- **Skills** — tags interativas.
+- **Languages** — níveis Básico, Intermediário, Avançado, Fluente e Nativo.
 
-*Interface em inglês com pré-visualização do currículo em tempo real*
+Componentes:
 
-</div>
+- **Section** — seção colapsável que organiza o formulário sem sobrecarregar a tela.
+- **Input** — input reutilizável, base de todos os campos.
+- **ResumePreview** — renderização fiel do documento final.
+- **icons/** — ícones SVG próprios, sem dependência de lib externa.
 
----
+Utils: `exportPDF` (encapsula o html2pdf.js) e `demoData`. Os contratos de dados vivem em `types/` com TypeScript.
 
-## 🚀 Tecnologias Utilizadas
+### Arquitetura
 
-| Tecnologia | Versão | Descrição |
-|:---|:---:|:---|
-| [React](https://react.dev/) | 18.3 | Biblioteca para construção de interfaces |
-| [TypeScript](https://www.typescriptlang.org/) | 5.5 | Superset JavaScript com tipagem estática |
-| [Vite](https://vitejs.dev/) | 5.3 | Build tool ultrarrápida para desenvolvimento |
-| [Tailwind CSS](https://tailwindcss.com/) | 3.4 | Framework CSS utilitário |
-| [html2pdf.js](https://ekoopmans.github.io/html2pdf.js/) | 0.10 | Biblioteca para exportação de HTML para PDF |
-
----
-
-## ✨ Funcionalidades
-
-### Dados Pessoais
-- Nome completo
-- Cargo desejado
-- Resumo profissional
-- E-mail, telefone e cidade
-- LinkedIn e GitHub
-
-### Formação Acadêmica
-- Adicione múltiplas formações
-- Instituição, curso e período
-
-### Experiência Profissional
-- Adicione múltiplas experiências
-- Empresa, cargo, período e descrição detalhada
-
-### Habilidades
-- Sistema de tags interativo
-- Digite e pressione Enter para adicionar
-
-### Idiomas
-- Lista com nível de proficiência
-- Opções: Básico, Intermediário, Avançado, Fluente, Nativo
-
-### 🌐 Suporte a Idiomas
-Alterne entre **Português (PT)** e **Inglês (EN)** com um clique. Toda a interface e os tópicos do currículo são traduzidos automaticamente:
-
-| Português | Inglês |
-|:---|:---|
-| Resumo Profissional | Professional Summary |
-| Experiência Profissional | Work Experience |
-| Formação Acadêmica | Education |
-| Habilidades | Skills |
-| Idiomas | Languages |
-
-### Template ATS Friendly
-- ✅ Layout em coluna única
-- ✅ Sem tabelas ou elementos gráficos complexos
-- ✅ Hierarquia clara de títulos (`h1`, `h2`, `h3`)
-- ✅ Fontes legíveis e profissionais
-- ✅ Organização lógica das informações
-
-### Exportação PDF
-- Formato A4 profissional
-- Formatação preservada
-- Nome do arquivo personalizado
-
-### Responsividade
-- 💻 **Desktop** — Painel dividido (edição + pré-visualização)
-- 📱 **Tablet** — Layout adaptativo
-- 📲 **Mobile** — Toggle entre editar e visualizar
-
----
-
-## 📦 Instalação e Uso
-
-### Pré-requisitos
-- [Node.js](https://nodejs.org/) >= 18.0
-- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
-
-### Passo a passo
-
-```bash
-# 1. Clone o repositório
-git clone https://github.com/KelvinOliveiraCode/ats-resume-builder.git
-
-# 2. Acesse o diretório do projeto
-cd ats-resume-builder
-
-# 3. Instale as dependências
-npm install
-
-# 4. Inicie o servidor de desenvolvimento
-npm run dev
-
-# 5. Abra no navegador
-# http://localhost:5173
+```
+src/
+├── components/   # Section, Input, ResumePreview, icons/
+├── utils/        # exportPDF, demoData
+├── types/        # contratos TypeScript dos dados do currículo
+└── ...
 ```
 
-### Build para produção
+Fluxo: formulários → estado tipado (`types/`) → `ResumePreview` renderiza → `exportPDF` serializa para A4. O `useLocalStorage` intercepta mudanças de estado e sincroniza com o storage do navegador.
+
+### Como rodar
+
+```bash
+npm install
+npm run dev
+```
+
+Build de produção:
 
 ```bash
 npm run build
 ```
 
-O resultado será gerado na pasta `dist/`.
+Deploy é GitHub Pages — o app estático do build é servido direto em [kelvinoliveiracode.github.io/ats-resume-builder](https://kelvinoliveiracode.github.io/ats-resume-builder).
+
+### Roadmap
+
+- Validação com React Hook Form + Zod
+- Múltiplos templates
+- Análise ATS de palavras-chave
+- Drag-and-drop de seções
+- Dark mode
+- i18n completo
+- GitHub Actions
+
+### Decisões técnicas
+
+- **MVP enxuto** — cada feature presente resolve um problema real do fluxo (editar, visualizar, exportar); o resto fica no roadmap.
+- **Template único e rígido** — em vez de oferecer dezenas de templates medíocres, um só, correto do ponto de vista de parsing ATS.
+- **ícones próprios** — SVGs em `icons/` em vez de lib externa: menos peso no bundle, controle total do traço.
 
 ---
 
-## 📁 Estrutura do Projeto
+## 🇺🇸 English
+
+### What it is
+
+A resume generator MVP with deliberate focus on simplicity: fill in forms, see the result instantly in the preview, export to PDF. No account, no server — persistence is `localStorage` via a dedicated `useLocalStorage` hook.
+
+### Features
+
+- **Real-time preview** — every keystroke immediately reflects in the resume rendered alongside.
+- **ATS template** — single column, no tables, `h1`/`h2`/`h3` hierarchy, readable fonts: the structure ATS parsers read without errors.
+- **A4 PDF export** — via html2pdf.js 0.10, straight from the DOM.
+- **Local persistence** — the `useLocalStorage` hook keeps the draft across sessions.
+- **PT/EN** — interface and document in Portuguese or English.
+- **Demo data** — a `demoData` utility fills the resume with sample content.
+
+### Forms and components
+
+Forms:
+
+- **Personal** — personal contact data.
+- **Education** — education entries.
+- **Experience** — multiple experiences, add/remove dynamically.
+- **Skills** — interactive tags.
+- **Languages** — levels Basic, Intermediate, Advanced, Fluent, and Native.
+
+Components:
+
+- **Section** — collapsible section organizing the form without crowding the screen.
+- **Input** — reusable input, the base of every field.
+- **ResumePreview** — faithful render of the final document.
+- **icons/** — custom SVG icons, no external library dependency.
+
+Utils: `exportPDF` (wraps html2pdf.js) and `demoData`. Data contracts live in `types/` with TypeScript.
+
+### Architecture
 
 ```
-ats-resume-builder/
-├── public/                 # Arquivos estáticos
-├── src/
-│   ├── components/         # Componentes React
-│   │   ├── icons/          # Ícones SVG reutilizáveis
-│   │   ├── Section.tsx     # Componente de seção colapsável
-│   │   ├── Input.tsx       # Campo de input reutilizável
-│   │   ├── PersonalForm.tsx
-│   │   ├── EducationForm.tsx
-│   │   ├── ExperienceForm.tsx
-│   │   ├── SkillsForm.tsx
-│   │   ├── LanguagesForm.tsx
-│   │   └── ResumePreview.tsx
-│   ├── types/              # Tipagens TypeScript
-│   │   └── index.ts
-│   ├── hooks/              # Custom React Hooks
-│   │   └── useLocalStorage.ts
-│   ├── utils/              # Funções utilitárias
-│   │   ├── exportPDF.ts
-│   │   └── demoData.ts
-│   ├── styles/             # Estilos globais
-│   │   └── global.css
-│   ├── App.tsx             # Componente principal
-│   └── main.tsx            # Entry point
-├── screenshot.png          # Screenshot da aplicação
-├── index.html
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-├── tailwind.config.js
-├── postcss.config.js
-└── README.md
+src/
+├── components/   # Section, Input, ResumePreview, icons/
+├── utils/        # exportPDF, demoData
+├── types/        # TypeScript contracts for resume data
+└── ...
 ```
 
----
+Flow: forms → typed state (`types/`) → `ResumePreview` renders → `exportPDF` serializes to A4. The `useLocalStorage` hook intercepts state changes and syncs with browser storage.
 
-## 🛣️ Roadmap
+### Running it
 
-- [x] MVP funcional com todos os campos essenciais
-- [x] Exportação para PDF
-- [x] Persistência no localStorage
-- [x] Layout responsivo
-- [x] Suporte a idiomas (PT/EN)
-- [ ] Validação de campos com React Hook Form + Zod
-- [ ] Múltiplos templates de currículo
-- [ ] Análise ATS (verificador de palavras-chave)
-- [ ] Reordenação drag-and-drop de seções
-- [ ] Modo escuro na interface de edição
-- [ ] Suporte a múltiplos idiomas (i18n completo)
-- [ ] Deploy automático com GitHub Actions
+```bash
+npm install
+npm run dev
+```
 
----
+Production build:
 
-## 🤝 Como Contribuir
+```bash
+npm run build
+```
 
-1. Faça um **fork** do projeto
-2. Crie uma **branch** para sua feature (`git checkout -b feature/nova-feature`)
-3. Faça **commit** das suas alterações (`git commit -m 'Adiciona nova feature'`)
-4. Faça **push** para a branch (`git push origin feature/nova-feature`)
-5. Abra um **Pull Request**
+Deployment is GitHub Pages — the static build output is served directly at [kelvinoliveiracode.github.io/ats-resume-builder](https://kelvinoliveiracode.github.io/ats-resume-builder).
 
----
+### Roadmap
 
-## 📝 Licença
+- Validation with React Hook Form + Zod
+- Multiple templates
+- ATS keyword analysis
+- Section drag-and-drop
+- Dark mode
+- Full i18n
+- GitHub Actions
 
-Este projeto está licenciado sob a licença MIT — veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+### Technical decisions
 
----
-
-## 👨‍💻 Desenvolvedor
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/KelvinOliveiraCode">
-        <img src="https://github.com/KelvinOliveiraCode.png" width="100px;" alt="Kelvin Oliveira" style="border-radius: 50%;"/>
-        <br />
-        <sub><b>Kelvin Oliveira</b></sub>
-      </a>
-      <br />
-      <sub>Full Stack Developer</sub>
-    </td>
-  </tr>
-</table>
-
-<div align="center">
-
-### 🌐 Conecte-se comigo
-
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KelvinOliveiraCode)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kelvin-oliveira-0282033b4/)
-[![DIO](https://img.shields.io/badge/DIO-000000?style=for-the-badge&logo=dev.to&logoColor=white)](https://web.dio.me/users/kelvinrebelosw)
-
-</div>
+- **Lean MVP** — every shipped feature solves a real step of the flow (edit, preview, export); the rest stays on the roadmap.
+- **One rigid template** — instead of dozens of mediocre templates, a single one that is correct from an ATS parsing standpoint.
+- **Custom icons** — SVGs in `icons/` instead of an external library: less bundle weight, full control over the stroke.
 
 ---
 
-<div align="center">
+## Autor
 
-⭐ Se este projeto te ajudou, deixe uma estrela no repositório!
+**Kelvin Oliveira**
 
-**Feito com 💙 por [Kelvin Oliveira](https://github.com/KelvinOliveiraCode)**
+- GitHub: [KelvinOliveiraCode](https://github.com/KelvinOliveiraCode)
+- LinkedIn: [kelvin-oliveira-0282033b4](https://www.linkedin.com/in/kelvin-oliveira-0282033b4/)
 
-</div>
+## Licença
+
+Distribuído sob a licença MIT. Consulte o arquivo de licença do repositório para detalhes.
