@@ -1,125 +1,51 @@
-<div align="center">
-
-# 📄 ATS Resume Builder
-
-### Gerador de Currículos Otimizado para Sistemas ATS
+# ATS Resume Builder
 
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=white)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-5.3-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![html2pdf.js](https://img.shields.io/badge/html2pdf.js-0.10-blue)](https://ekoopmans.github.io/html2pdf.js/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-<p align="center">
-  <img src="https://img.shields.io/badge/status-em%20desenvolvimento-yellow" alt="Status">
-  <img src="https://img.shields.io/badge/versão-1.0.0-blue" alt="Versão">
-</p>
+Aplicação web de página única para criar currículos compatíveis com sistemas ATS (Applicant Tracking Systems), com editor e pré-visualização lado a lado, exportação para PDF em A4 e interface em português ou inglês.
 
-</div>
+## Problema / Por que existe
 
----
+Sistemas ATS leem e filtram currículos automaticamente antes de chegarem a um recrutador. Layouts com colunas, tabelas, imagens, gráficos ou fontes incomuns podem ser interpretados incorretamente por esses parsers e fazer com que informações relevantes sejam ignoradas. Este aplicativo gera um documento de coluna única, texto puro e hierarquia clara de títulos, priorizando que o conteúdo seja lido corretamente pelo sistema de triagem.
 
-## 📖 Sobre o Projeto
+## O que faz
 
-O **ATS Resume Builder** é uma aplicação web moderna que permite criar currículos profissionais otimizados para **Sistemas ATS** (Applicant Tracking Systems). Esses sistemas são utilizados por empresas para filtrar e classificar currículos automaticamente, por isso a formatação correta é essencial para passar pelos filtros.
+- Dados pessoais: nome completo, cargo desejado, resumo profissional, e-mail, telefone, cidade, LinkedIn e GitHub.
+- Experiência profissional: empresa, cargo, período e descrição; itens adicionados e removidos dinamicamente.
+- Formação acadêmica: instituição, curso e período; suporte a múltiplos itens.
+- Habilidades: lista de tags, digitando o termo e pressionando Enter.
+- Idiomas: nome do idioma e nível (Básico, Intermediário, Avançado, Fluente, Nativo em português; Basic, Intermediate, Advanced, Fluent, Native em inglês).
+- Pré-visualização em tempo real do currículo ao lado do formulário de edição.
+- Alternância de idioma da interface e dos títulos do currículo entre português e inglês.
+- Exportação do currículo para PDF no formato A4, retrato, com nome de arquivo baseado no nome do candidato.
+- Persistência automática em localStorage; dados de demonstração são carregados na primeira visita.
+- Layout responsivo: painel dividido (edição e pré-visualização) em desktop; modo alternar entre editar e visualizar em mobile.
 
-Este projeto foi desenvolvido como um **MVP (Produto Mínimo Viável)** com foco em:
+## Stack
 
-- ✅ **Simplicidade** — Interface limpa e intuitiva
-- ✅ **Pré-visualização em tempo real** — Veja as alterações instantaneamente
-- ✅ **Template ATS Friendly** — Layout otimizado para parsers de currículo
-- ✅ **Exportação PDF** — Download em formato A4 profissional
-- ✅ **Persistência local** — Dados salvos automaticamente no navegador
-- ✅ **Suporte a idiomas** — Interface e documento em Português ou Inglês
+- React 18.3 — construção da interface
+- TypeScript 5.5 — tipagem estática
+- Vite 5.3 — servidor de desenvolvimento e build de produção
+- Tailwind CSS 3.4 — estilos utilitários
+- html2pdf.js 0.10 com html2canvas — exportação para PDF
+- gh-pages — publicação em GitHub Pages
 
----
+## Como funciona
 
-## 🎥 Demonstração
+O estado da aplicação vive em `src/App.tsx` e contém os blocos `personal`, `education`, `experience`, `skills`, `languages` e `resumeLang`. O hook `src/hooks/useLocalStorage.ts` carrega os dados do `localStorage` na chave `ats-resume-data` e grava automaticamente a cada alteração; quando não há dado salvo, `src/utils/demoData.ts` preenche o formulário com um currículo de exemplo.
 
-<div align="center">
+Cada bloco de dados tem seu próprio formulário (`PersonalForm`, `ExperienceForm`, `EducationForm`, `SkillsForm`, `LanguagesForm`) que atualiza o slice correspondente do estado. `src/components/ResumePreview.tsx` renderiza o currículo com base nos mesmos dados e em um elemento de referência (`ref`); o botão Exportar PDF chama `src/utils/exportPDF.ts`, que renderiza esse elemento com html2pdf.js em escala 2, formato A4, retrato, e dispara o download.
 
-![Screenshot da aplicação](screenshot.png)
+As traduções da interface e dos títulos do currículo estão em `src/types/index.ts` no objeto `UI_LABELS`, com chaves `pt` e `en`. O componente `Section` controla seções colapsáveis do editor. O Vite está configurado com alias `@` apontando para `src/` e base `/ats-resume-builder/`, adequado a hospedagem em subpasta do GitHub Pages.
 
-*Interface em inglês com pré-visualização do currículo em tempo real*
+## Como rodar
 
-</div>
-
----
-
-## 🚀 Tecnologias Utilizadas
-
-| Tecnologia | Versão | Descrição |
-|:---|:---:|:---|
-| [React](https://react.dev/) | 18.3 | Biblioteca para construção de interfaces |
-| [TypeScript](https://www.typescriptlang.org/) | 5.5 | Superset JavaScript com tipagem estática |
-| [Vite](https://vitejs.dev/) | 5.3 | Build tool ultrarrápida para desenvolvimento |
-| [Tailwind CSS](https://tailwindcss.com/) | 3.4 | Framework CSS utilitário |
-| [html2pdf.js](https://ekoopmans.github.io/html2pdf.js/) | 0.10 | Biblioteca para exportação de HTML para PDF |
-
----
-
-## ✨ Funcionalidades
-
-### Dados Pessoais
-- Nome completo
-- Cargo desejado
-- Resumo profissional
-- E-mail, telefone e cidade
-- LinkedIn e GitHub
-
-### Formação Acadêmica
-- Adicione múltiplas formações
-- Instituição, curso e período
-
-### Experiência Profissional
-- Adicione múltiplas experiências
-- Empresa, cargo, período e descrição detalhada
-
-### Habilidades
-- Sistema de tags interativo
-- Digite e pressione Enter para adicionar
-
-### Idiomas
-- Lista com nível de proficiência
-- Opções: Básico, Intermediário, Avançado, Fluente, Nativo
-
-### 🌐 Suporte a Idiomas
-Alterne entre **Português (PT)** e **Inglês (EN)** com um clique. Toda a interface e os tópicos do currículo são traduzidos automaticamente:
-
-| Português | Inglês |
-|:---|:---|
-| Resumo Profissional | Professional Summary |
-| Experiência Profissional | Work Experience |
-| Formação Acadêmica | Education |
-| Habilidades | Skills |
-| Idiomas | Languages |
-
-### Template ATS Friendly
-- ✅ Layout em coluna única
-- ✅ Sem tabelas ou elementos gráficos complexos
-- ✅ Hierarquia clara de títulos (`h1`, `h2`, `h3`)
-- ✅ Fontes legíveis e profissionais
-- ✅ Organização lógica das informações
-
-### Exportação PDF
-- Formato A4 profissional
-- Formatação preservada
-- Nome do arquivo personalizado
-
-### Responsividade
-- 💻 **Desktop** — Painel dividido (edição + pré-visualização)
-- 📱 **Tablet** — Layout adaptativo
-- 📲 **Mobile** — Toggle entre editar e visualizar
-
----
-
-## 📦 Instalação e Uso
-
-### Pré-requisitos
-- [Node.js](https://nodejs.org/) >= 18.0
-- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
-
-### Passo a passo
+Pré-requisitos: Node.js 18 ou superior e npm.
 
 ```bash
 # 1. Clone o repositório
@@ -138,120 +64,79 @@ npm run dev
 # http://localhost:5173
 ```
 
-### Build para produção
+Comandos úteis
 
 ```bash
-npm run build
+npm run build   # build de produção (tsc + vite build), saída em dist/
+npm run preview # pré-visualiza o build localmente
+npm run deploy  # build e publica em GitHub Pages via gh-pages
 ```
 
-O resultado será gerado na pasta `dist/`.
-
----
-
-## 📁 Estrutura do Projeto
+## Estrutura do projeto
 
 ```
 ats-resume-builder/
-├── public/                 # Arquivos estáticos
-├── src/
-│   ├── components/         # Componentes React
-│   │   ├── icons/          # Ícones SVG reutilizáveis
-│   │   ├── Section.tsx     # Componente de seção colapsável
-│   │   ├── Input.tsx       # Campo de input reutilizável
-│   │   ├── PersonalForm.tsx
-│   │   ├── EducationForm.tsx
-│   │   ├── ExperienceForm.tsx
-│   │   ├── SkillsForm.tsx
-│   │   ├── LanguagesForm.tsx
-│   │   └── ResumePreview.tsx
-│   ├── types/              # Tipagens TypeScript
-│   │   └── index.ts
-│   ├── hooks/              # Custom React Hooks
-│   │   └── useLocalStorage.ts
-│   ├── utils/              # Funções utilitárias
-│   │   ├── exportPDF.ts
-│   │   └── demoData.ts
-│   ├── styles/             # Estilos globais
-│   │   └── global.css
-│   ├── App.tsx             # Componente principal
-│   └── main.tsx            # Entry point
-├── screenshot.png          # Screenshot da aplicação
 ├── index.html
 ├── package.json
+├── package-lock.json
 ├── tsconfig.json
+├── tsconfig.node.json
 ├── vite.config.ts
 ├── tailwind.config.js
 ├── postcss.config.js
-└── README.md
+├── .gitignore
+├── screenshot.png
+├── README.md
+├── DEPLOY.md
+├── dist/                 # resultado do build de produção
+└── src/
+    ├── main.tsx          # ponto de entrada (ReactDOM.createRoot)
+    ├── App.tsx           # estado global, formulários, preview, exportação, idioma
+    ├── html2pdf.d.ts
+    ├── vite-env.d.ts
+    ├── components/
+    │   ├── index.ts
+    │   ├── Section.tsx           # seção colapsável do editor
+    │   ├── Input.tsx             # campo de entrada reutilizável
+    │   ├── PersonalForm.tsx      # dados pessoais
+    │   ├── ExperienceForm.tsx    # experiência profissional
+    │   ├── EducationForm.tsx     # formação acadêmica
+    │   ├── SkillsForm.tsx        # lista de habilidades
+    │   ├── LanguagesForm.tsx     # idiomas e níveis
+    │   ├── ResumePreview.tsx     # renderização do currículo e ref para PDF
+    │   └── icons/                # ícones SVG (Mail, Phone, MapPin, LinkedIn, GitHub, Download, Eye, FileText, ChevronDown)
+    ├── hooks/
+    │   └── useLocalStorage.ts    # persistência em localStorage
+    ├── types/
+    │   └── index.ts              # interfaces de dados, UI_LABELS (pt/en), LEVELS
+    ├── styles/
+    │   └── global.css
+    └── utils/
+        ├── exportPDF.ts          # html2pdf.js, A4 retrato, escala 2
+        └── demoData.ts           # dados de demonstração da primeira visita
 ```
 
----
+## Trade-offs e decisões
 
-## 🛣️ Roadmap
+- Estado centralizado em `App.tsx` sem biblioteca de formulários: menos dependências e controle direto, mas sem validação de campos; o currículo pode ser exportado com dados vazios ou incompletos.
+- Persistência apenas em `localStorage`: os dados ficam no navegador do usuário, não há conta, login, backend nem exportação de arquivo de backup; limpar o navegador apaga os dados.
+- Exportação por captura de tela (html2canvas + jsPDF): o texto do PDF gerado pode não ser selecionável ou acessível em todos os leitores, e o resultado depende do navegador e da resolução da tela.
+- Um único template de coluna única: maximiza a compatibilidade com ATS e parsers de currículo, sem opção de layout criativo, de duas colunas ou elementos gráficos.
+- Tradução PT/EN estática em um único objeto de rótulos, sem framework de i18n: simples de estender, mas sem escopo para mais idiomas ou carregamento sob demanda.
+- Dados de demonstração carregados automaticamente na primeira visita para mostrar o resultado imediatamente.
 
-- [x] MVP funcional com todos os campos essenciais
-- [x] Exportação para PDF
-- [x] Persistência no localStorage
-- [x] Layout responsivo
-- [x] Suporte a idiomas (PT/EN)
-- [ ] Validação de campos com React Hook Form + Zod
-- [ ] Múltiplos templates de currículo
-- [ ] Análise ATS (verificador de palavras-chave)
-- [ ] Reordenação drag-and-drop de seções
-- [ ] Modo escuro na interface de edição
-- [ ] Suporte a múltiplos idiomas (i18n completo)
-- [ ] Deploy automático com GitHub Actions
+## Limitações conhecidas
 
----
+- Não há validação de campos obrigatórios nem mensagens de erro.
+- O PDF gerado por captura de tela pode não conter texto selecionável ou acessível em leitores de PDF e tecnologias assistivas.
+- Sem backend ou autenticação: nada sai do navegador do usuário e não há sincronização entre dispositivos.
+- Não há reordenação por arrastar e soltar de seções nem múltiplos templates de currículo.
+- O build está configurado com base `/ats-resume-builder/`, feito para hospedagem em subpasta do GitHub Pages.
 
-## 🤝 Como Contribuir
+## Licença
 
-1. Faça um **fork** do projeto
-2. Crie uma **branch** para sua feature (`git checkout -b feature/nova-feature`)
-3. Faça **commit** das suas alterações (`git commit -m 'Adiciona nova feature'`)
-4. Faça **push** para a branch (`git push origin feature/nova-feature`)
-5. Abra um **Pull Request**
+MIT.
 
----
+## Autor
 
-## 📝 Licença
-
-Este projeto está licenciado sob a licença MIT — veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
-
-## 👨‍💻 Desenvolvedor
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/KelvinOliveiraCode">
-        <img src="https://github.com/KelvinOliveiraCode.png" width="100px;" alt="Kelvin Oliveira" style="border-radius: 50%;"/>
-        <br />
-        <sub><b>Kelvin Oliveira</b></sub>
-      </a>
-      <br />
-      <sub>Full Stack Developer</sub>
-    </td>
-  </tr>
-</table>
-
-<div align="center">
-
-### 🌐 Conecte-se comigo
-
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KelvinOliveiraCode)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kelvin-oliveira-0282033b4/)
-[![DIO](https://img.shields.io/badge/DIO-000000?style=for-the-badge&logo=dev.to&logoColor=white)](https://web.dio.me/users/kelvinrebelosw)
-
-</div>
-
----
-
-<div align="center">
-
-⭐ Se este projeto te ajudou, deixe uma estrela no repositório!
-
-**Feito com 💙 por [Kelvin Oliveira](https://github.com/KelvinOliveiraCode)**
-
-</div>
+Kelvin Oliveira — https://github.com/KelvinOliveiraCode
