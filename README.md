@@ -14,7 +14,7 @@
 
 ## O que é
 
-Gerador de currículos ATS-friendly com React, TypeScript e Tailwind | ATS-friendly resume builder with live preview and PDF export
+Gerador de currículos ATS-friendly com React, TypeScript e Tailwind
 
 ---
 
